@@ -79,7 +79,7 @@ const post_newPost = (req,res) => {
                             postedByID: req.user.id,
                             postedByName: req.user.username,
                             postImage: req.file.filename,
-                            postLikes: 0
+                            postLikes: null
                         })
                         const insertPost = await postToPost.save();
 
