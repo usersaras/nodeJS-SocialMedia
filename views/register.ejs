@@ -1,0 +1,60 @@
+<div class="container">
+    
+
+    <div class="row">
+        
+        <div class="col-md-3"></div>
+        <div class="col-md-6 border p-5 rounded">
+            <h2>Join the gang!</h2>
+
+            <%  if(typeof error !== 'undefined') {%> 
+                <%= error  %> 
+            <% } %> 
+            
+           
+            <form action="/register" method="POST">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="placeholder">
+                    <label for="name">Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select type="gender" class="form-control" id="gender" name="gender" placeholder="placeholder">
+                        <option selected>Pick Your Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="NA">Rather not say</option>
+                    </select>
+                    <label for="gender">Gender</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="dob" name="dob" placeholder="placeholder">
+                    <label for="dob">Date of Birth</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="placeholder">
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="placeholder">
+                    <label for="username">Password</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                        placeholder="placeholder">
+                    <label for="username">Confirm Password</label>
+                </div>
+
+                <button class="btn btn-dark">Join!</button>
+
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>

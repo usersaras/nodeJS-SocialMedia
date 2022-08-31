@@ -1,0 +1,121 @@
+<div class="container d-flex flex-column gap-3">
+    <div class="d-flex gap-5 align-items-center justify-content-between">
+        <h2>Recent Posts</h2>
+        <div class="d-flex gap-2">
+            <a href="/my-posts" class="btn rounded-pill btn-outline-dark">My Posts</a>
+            <a href="/all-posts" class="btn rounded-pill btn-outline-dark">All Posts</a>
+        </div>
+    </div>
+    <% postArray.forEach(individualPost=>{ %>
+    <% const {createdAt} = individualPost 
+            %>
+    <div class="border p-3 rounded">
+        <h5 class="mb-0"><%= individualPost.postedByName %></h5>
+        <p class="mb-0"><%= individualPost.post %></p>
+        <% if(typeof individualPost.postImage !== 'undefined'){ %>
+        <img class="w-50" src="uploads/post-pictures/<%= individualPost.postImage %>" alt="img">
+        <% }%>
+        <div class="d-flex gap-2 align-items-center">
+            <% 
+                if(individualPost.postLikes == null){
+
+                }
+                else{
+
+                }
+                %>
+            <% 
+
+               let checkArr = `${individualPost.postLikes}`.replace(/\s/g, "");
+
+       
+                
+                if(checkArr !== "undefined"){
+                    checkArr = JSON.parse(`[${checkArr}]`)
+
+                    console.log(checkArr)
+
+                    let checkLikes = checkArr.filter((likedBy)=>{
+                        return likedBy == user.id;
+                    })
+
+                    console.log('checkLikes', checkLikes)
+
+                    if(checkLikes.length>0){
+                        %>
+            <i class="fa fa-heart likeButton" data-likedby="<%= user.id %>"
+                data-postid="<%= individualPost._id %>"></i>
+            <p class="mb-0 displayLikes"><% 
+               
+                    let toBeParsed = `[${individualPost.postLikes}]`.split(",")
+              
+                    %>
+                <%= toBeParsed.length%></p>
+            <%
+                    }
+                    else{
+                        %>
+            <i class="fa-regular fa-heart likeButton" data-likedby="<%= user.id %>" data-postid="<%= individualPost._id %>"></i>
+            <p class="mb-0 displayLikes"><% 
+               
+                    let toBeParsed = `[${individualPost.postLikes}]`.split(",")
+                    console.log("TBP", toBeParsed[0])
+                if(toBeParsed[0] !== "[]"){
+                    %>
+                <%= toBeParsed.length%></p>
+            <%
+                    }
+                }
+
+                }
+                %>
+
+
+        </div>
+        <p class="mb-0" style="font-size: 14px">Posted on: <%= createdAt.toString().slice(4,15) %> </p>
+
+
+    </div>
+    <%})%>
+</div>
+
+<script>
+    let likeEl = (document.getElementsByClassName('likeButton'));
+    let displayLikeEl = document.getElementsByClassName('displayLikes')
+  
+
+    let endPoint = [];
+
+    for (let i = 0; i < likeEl.length; i++) {
+        endPoint[i] = `posts/increaseLike/${likeEl[i].dataset.postid}`
+
+        console.log(i);
+        (likeEl[i]).addEventListener('click', () => {
+            console.log("click");
+            fetch(endPoint[i], ({
+                method: 'PUT',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({
+                    likedBy: likeEl[i].dataset.likedby
+                })
+            }))
+                .then(res => res.json())
+                .then(data => {
+                    let toBeParsed = `[${data.likes}]`
+                    console.log(JSON.parse(toBeParsed).length);
+
+                    displayLikeEl[i].textContent = JSON.parse(toBeParsed).length;
+            
+                    likeEl[i].classList.remove('fa-regular')
+                    likeEl[i].classList.add('fa')
+
+                    console.log(document.getElementsByClassName('displayLikes[i]'));
+                })
+                .catch(e => console.log(e));
+        })
+
+       
+    }
+
+
+</script>

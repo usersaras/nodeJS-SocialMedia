@@ -1,0 +1,56 @@
+<% if(postArray.length>0){ %>
+        
+    <div class="container d-flex flex-column gap-3">
+    <h2>My Posts</h2>
+<% const newArray = postArray.filter(post => {
+    return post.postedByName == user.username;
+}) %> 
+
+    <% newArray.forEach(individualPost=>{ %>
+        <div class="border p-3 rounded">
+        <h5 class="mb-0"><%= individualPost.postedByName %></h5>
+        <p class="mb-0"><%= individualPost.post %></p>
+        <p class="mb-0" style="font-size: 14px"><%= individualPost.createdAt %> </p>
+
+        <form action="/deletePost" method="POST">
+            <button class="mt-2 btn btn-sm btn-outline-danger deleteBtn" data-doc="<%= individualPost._id %>" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </form>
+        </div>
+    <%})%>    
+    </div>
+
+    <% } %>
+
+<script>
+   
+    const deleteBtn = document.getElementsByClassName('deleteBtn');
+    
+    let endPoint = [];
+    
+
+    for(let i=1; i<deleteBtn.length+1; i++){
+
+        console.log(i)
+        endPoint[i] =  `deletePost/${deleteBtn[i-1].dataset.doc}`
+        console.log(endPoint[i]);
+    
+        deleteBtn[i-1].addEventListener('click', (e)=>{
+        
+        e.preventDefault();
+
+        const deleteRequest = async() => {
+            const resolve = await fetch(endPoint[i],{
+                method: 'DELETE'
+            });
+            const data = await resolve.json();
+
+            window.location.href = data.redirect;
+        }
+        deleteRequest();
+    })
+    }
+
+    
+
+    
+</script>

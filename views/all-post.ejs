@@ -1,0 +1,10 @@
+<% if(postArray.length>0){ %>
+        
+   
+<% postArray = postArray.filter(post => {
+    return post.postedByName !== user.username;
+}) %> 
+
+<%- include('./partials/posts') %>
+    <% 
+} %>

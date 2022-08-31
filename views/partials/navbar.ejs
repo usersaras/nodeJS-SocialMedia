@@ -1,0 +1,26 @@
+<nav class="bg-dark py-3">
+    <div class="container d-flex gap-5 align-items-center justify-content-between">
+       <a href="/" class="text-decoration-none"> <h1 class="text-white mb-0">Social Media</h1></a>
+
+        <% if(typeof user !== 'undefined'){ %>
+        <div class="d-flex gap-4 justify-content-start">
+            <button type="button" class="btn btn-outline-light position-relative user-button">
+                <div class="d-flex gap-2 align-items-center">
+                    <i class="fa fa-user-circle mb-0" aria-hidden="true"></i>
+                    <p class="d-flex gap-1 align-items-center mb-0"><%= user.username  %> </p>
+                </div>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+            <div class="logout">
+                <form action="/logout?_method=DELETE" method="POST"> 
+                    <button class="btn btn-light">Logout</button>
+                </form>
+            </div>
+        </div>
+        <% } %>
+
+    </div>
+</nav>

@@ -1,0 +1,92 @@
+
+<div class="container">
+    <h3>Hello, <%= user.username %>!</h3>
+    <hr />
+    
+    <% 
+    if(typeof error !== 'undefined'){
+        %>
+        <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+            <strong>Holy guacamole!</strong> <%= error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <%
+    }
+     if(messages.error){
+         %>
+
+         <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+            <strong>Holy guacamole!</strong> <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+         
+         <%
+     }
+     %>
+    <form action="create-new-post" method="POST" enctype="multipart/form-data">
+        <div class="d-flex gap-2 align-items-start justify-content-center">
+            <i class="fa fa-circle-user fa-3x" aria-hidden="true"></i>
+            <div class="w-100 d-flex flex-column gap-2">
+                <textarea name="newPost" id="newPost" class="form-control" autocomplete="off" onkeypress="countChars()" placeholder="Make a post!"></textarea>
+                <input type="file" class="form-control" id="postImage" name="postImage" class="mt-2">
+                <img id="blah" src="#" alt="" class="w-50" />
+            </div>
+        </div>
+        
+        <div id="warning-display" class="text-end"></div>
+        <div class="text-end mt-2">
+        <button class="btn btn-dark">Post</button>
+        <input type="reset" class="btn btn-outline-danger" onclick="resetClick()">
+        </div>
+    </form>
+
+     <% 
+     if(messages.success){
+         %>
+
+         <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+            <strong>Holy guacamole!</strong> <%= messages.success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+         
+         <%
+     }
+     %>
+    </div>
+
+    <hr>
+
+    <% if(postArray.length>0){ %>
+        
+    <%- include('./partials/posts') %>
+
+    <% } %>
+
+
+
+
+<script>
+    let count = 0;
+    function countChars(){
+        count++;
+        console.log(count);
+
+        if(count>35){
+            console.log("Exceed");
+            document.getElementById('warning-display').innerHTML = "<p class='text-danger mb-0 mt-2'>Maximum character limit exceeded!</p>";
+        }
+    }
+
+    postImage.onchange = evt => {
+        const [file] = postImage.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+    }
+
+    function resetClick(){
+        console.log("reste");
+        blah.src = ' ';
+ 
+    }
+</script>

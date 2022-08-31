@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <% 
+            if(typeof messages !== undefined){
+                %>
+                <%= messages.error %>   
+                <%= messages.success %>   
+                <%
+            }
+            %>
+         
+            <form action="/login" method="POST">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control">
+
+                <label for="username" class="mt-3">Password</label>
+                <input type="text" name="password" id="password" class="form-control">
+
+                <button class="mt-3 btn btn-dark">Login</button>
+
+                <p class="mt-3 mb-0">Don't have an account. <a href="/register">Register Now!</a></p>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>

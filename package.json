@@ -1,0 +1,40 @@
+{
+  "name": "node_socialmedia",
+  "version": "1.0.0",
+  "description": "A social media mockup made using NodeJS and ExpressJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usersaras/node_socialmedia.git"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "Saras Sthapit Shrestha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usersaras/node_socialmedia/issues"
+  },
+  "homepage": "https://github.com/usersaras/node_socialmedia#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.5.3",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
