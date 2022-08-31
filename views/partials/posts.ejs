@@ -16,24 +16,16 @@
         <img class="w-50" src="uploads/post-pictures/<%= individualPost.postImage %>" alt="img">
         <% }%>
         <div class="d-flex gap-2 align-items-center">
-            <% 
-                if(individualPost.postLikes == null){
-
-                }
-                else{
-
-                }
-                %>
+          
             <% 
 
                let checkArr = `${individualPost.postLikes}`.replace(/\s/g, "");
-
-       
-                
+                console.log("CA: ", checkArr)
                 if(checkArr !== "undefined"){
+                    if(checkArr!== "null"){
                     checkArr = JSON.parse(`[${checkArr}]`)
 
-                    console.log(checkArr)
+                    console.log("CA", checkArr)
 
                     let checkLikes = checkArr.filter((likedBy)=>{
                         return likedBy == user.id;
@@ -42,10 +34,11 @@
                     console.log('checkLikes', checkLikes)
 
                     if(checkLikes.length>0){
-                        %>
-            <i class="fa fa-heart likeButton" data-likedby="<%= user.id %>"
-                data-postid="<%= individualPost._id %>"></i>
-            <p class="mb-0 displayLikes"><% 
+            %>
+                    <i class="fa fa-heart likeButton" data-likedby="<%= user.id %>"
+                        data-postid="<%= individualPost._id %>"></i>
+                    <p class="mb-0 displayLikes">
+            <% 
                
                     let toBeParsed = `[${individualPost.postLikes}]`.split(",")
               
@@ -54,6 +47,7 @@
             <%
                     }
                     else{
+                        
                         %>
             <i class="fa-regular fa-heart likeButton" data-likedby="<%= user.id %>" data-postid="<%= individualPost._id %>"></i>
             <p class="mb-0 displayLikes"><% 
@@ -67,7 +61,12 @@
                     }
                 }
 
-                }
+                }else{
+                    %>
+                    <i class="fa-regular fa-heart likeButton" data-likedby="<%= user.id %>" data-postid="<%= individualPost._id %>"></i>
+            <p class="mb-0 displayLikes">0</p>
+                    <%
+                }}
                 %>
 
 
@@ -104,10 +103,15 @@
                     let toBeParsed = `[${data.likes}]`
                     console.log(JSON.parse(toBeParsed).length);
 
-                    displayLikeEl[i].textContent = JSON.parse(toBeParsed).length;
+                    console.log("TBP:" ,(toBeParsed))
+                    if(toBeParsed=='[null]'){
+                        console.log("null")
+                    }
+                    displayLikeEl[i].textContent =  (toBeParsed == '[null]' ? "0" : JSON.parse(toBeParsed).length) ;
             
-                    likeEl[i].classList.remove('fa-regular')
-                    likeEl[i].classList.add('fa')
+                    likeEl[i].classList.toggle('fa')
+                    likeEl[i].classList.toggle('fa-regular')
+                    // likeEl[i].classList.toggle('fa-heart')
 
                     console.log(document.getElementsByClassName('displayLikes[i]'));
                 })

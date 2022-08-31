@@ -66,7 +66,43 @@ router.put('/posts/increaseLike/:id', (req,res)=>{
 
                 if(hasLiked.length>0){
                     console.log("Already Liked");
-                    console.log(typeof(hasLiked));
+                    console.log((hasLiked));
+
+                    Posts.find({_id: req.params.id})
+                        .then(post=>{
+                            console.log(post);
+                            console.log("--------");
+
+                            let likeArray = JSON.parse(`[${post[0].postLikes}]`);
+                            
+                            console.log(likeArray);
+
+                            let x = likeArray.filter(post=>{
+                                return post !== req.user.id
+                            })
+
+                            let remainingLikes;
+                            if(JSON.stringify(x)=='[]'){
+                                remainingLikes= null
+                            }else{
+                                remainingLikes = JSON.stringify(x)
+                            }
+
+                            post[0].postLikes = remainingLikes;
+
+                            Posts.findByIdAndUpdate({_id: req.params.id},{
+                                postLikes: remainingLikes
+                            }, {new: true}).then(suc=>{
+                                console.log("Suc", suc);
+                                res.json({likes: suc.postLikes})
+                            })
+
+                            // console.log("RL: ",remainingLikes, post[0].postLikes);
+                        });
+
+
+
+
                     return;
                 }else{
                 postLikes= postLikes+`, "${req.body.likedBy}"`;
